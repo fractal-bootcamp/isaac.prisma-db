@@ -37,10 +37,10 @@ model Book {
 }
 
 model Member {
-  id           Int    @id @default(autoincrement())
-  Name         String
-  Email        String
-  Address      String
-  ShoppingCart Book   @relation(fields: [BookID], references: [id])
-  BookID       Int
+  id         Int    @id @default(autoincrement())
+  Name       String
+  Email      String
+  Address    String
+  RentalBook Book   @relation(fields: [BookID], references: [id])
+  BookID     Int
 }
