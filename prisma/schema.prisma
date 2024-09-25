@@ -13,29 +13,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Book {
-  id     Int    @id @default(autoincrement())
-  Title  String
-  Author String
-  ISBN   String
+model Genre {
+  id   Int    @id @default(autoincrement())
+  name String
+  book Book[]
 }
 
 model Author {
-  id        Int    @id @default(autoincrement())
-  Name      String
-  Biography String
+  id   Int    @id @default(autoincrement())
+  name String
+  bio  String
+  book Book[]
 }
 
-model Genre {
-  id      Int    @id @default(autoincrement())
-  Name    String
-  Email   String
-  Address String
+model Book {
+  id       Int      @id @default(autoincrement())
+  title    String
+  ISBN     String
+  author   Author   @relation(fields: [authorId], references: [id]) // We define a field here called AuthorID, and we're telling it to reference the id field in Author
+  authorId Int
+  Genre    Genre[]
+  Member   Member[]
 }
 
 model Member {
-  id      Int    @id @default(autoincrement())
-  Name    String
-  Email   String
-  Address String
+  id           Int    @id @default(autoincrement())
+  Name         String
+  Email        String
+  Address      String
+  ShoppingCart Book   @relation(fields: [BookID], references: [id])
+  BookID       Int
 }
